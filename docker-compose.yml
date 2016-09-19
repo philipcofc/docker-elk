@@ -1,4 +1,6 @@
 elasticsearch:
+  container_name: elasticsearch
+  restart: unless-stopped
   image: elasticsearch:latest
   command: elasticsearch -Des.network.host=0.0.0.0
   ports:
@@ -6,6 +8,8 @@ elasticsearch:
     - "9300:9300"
 
 logstash:
+  container_name: logstash
+  restart: unless-stopped
   build: logstash/
   command: logstash -f /etc/logstash/conf.d/logstash.conf
   ports:
@@ -14,6 +18,8 @@ logstash:
   links:
     - elasticsearch
 kibana:
+  container_name: kibana
+  restart: unless-stopped
   build: kibana/
   ports:
     - "5601:5601"
